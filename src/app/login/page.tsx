@@ -22,7 +22,7 @@ const Login = () => {
       setError(''); // Clear any previous errors
 
       try {
-        const response = await axios.get('https://ovesh5667.pythonanywhere.com/api/user_profile/user_exist/', {
+        const response = await axios.get('https://ovesh5667.pythonanywhere.com/api/user_exist/', {
           params: { user_id: mobile },
         });
 
