@@ -25,7 +25,7 @@ const Login = () => {
       try {
         // Check if the mobile number exists
         const response = await axios.get(
-          "https://ovesh5667.pythonanywhere.com/api/user_profile/user_exist/",
+          "https://gosang-d9esgjhxbsa0cwav.southindia-01.azurewebsites.net/api/user_profile/user_exist",
           {
             params: { user_id: Mobile }, // Pass user_id as query params in GET request
             headers: {
@@ -33,6 +33,7 @@ const Login = () => {
             }
           }
         );
+        console.log(response.data);
       
         if (response.data.exists) {
           setStep(2);
