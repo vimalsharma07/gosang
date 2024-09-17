@@ -23,26 +23,40 @@ const Login = () => {
       setError(""); // Clear any previous errors
 
       try {
-        // Check if the mobile number exists
-        const response = await axios.get(
+        const response = await axios.post(
           "https://gosang-d9esgjhxbsa0cwav.southindia-01.azurewebsites.net/api/user_profile/user_exist",
           {
-            params: { user_id: Mobile }, // Pass user_id as query params in GET request
+            user_id: Mobile, // Pass user_id in the body as JSON
+          },
+          {
             headers: {
               'Content-Type': 'application/json'
             }
           }
         );
         console.log(response.data);
-      
+    
         if (response.data.exists) {
           setStep(2);
         } else {
           setError("This Mobile number does not exist.");
         }
-      } catch (error) {
-        setError("Error checking mobile number. Please try again.");
-      }
+    } catch (error: any) {
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            console.error("Response Error:", error.response.data);
+            setError("Server responded with an error.");
+        } else if (error.request) {
+            // The request was made but no response was received
+            console.error("Request Error:", error.request);
+            setError("No response from the server. Please try again later.");
+        } else {
+            // Something happened in setting up the request
+            console.error("Network Error:", error.message);
+            setError("Network error. Please check your connection.");
+        }
+    }
+    
       
     } else if (step === 2) {
       if (password !== "" && otp === "") {
